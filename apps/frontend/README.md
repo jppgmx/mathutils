@@ -58,6 +58,12 @@ npm ci
 npm run dev -- --host 0.0.0.0 --port 5173 --strictPort
 ```
 
+Um override restrito a `@typescript-eslint/typescript-estree@8.72.2` fixa
+`minimatch` em `11.0.8` para corrigir o
+[GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249).
+Ele preserva as versões de TypeScript e ESLint do projeto e deve ser removido
+quando o typescript-eslint publicado adotar uma versão corrigida dessa dependência.
+
 `npm run build` verifica os tipos e compila; `npm run lint` verifica o código.
 `npm test` usa o runner nativo do Node.js para testar o contrato da API com
 respostas simuladas: sucesso, erro HTTP, HTML, JSON inválido e falha de rede.
