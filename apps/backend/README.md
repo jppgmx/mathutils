@@ -37,5 +37,6 @@ proxy Nginx. O override de dev monta o código em `/app` e seleciona o target
 `dev`; produção seleciona `prod`, sem bind mount do código e sem reload.
 Consulte os comandos no [README principal](../../README.md).
 
-O endpoint de saúde está implementado, mas a configuração de `healthcheck` do
-Compose e a espera por `service_healthy` no gateway permanecem pendentes.
+O health check do Compose consulta `/api/health`, verifica HTTP 200 e o JSON
+esperado. O gateway aguarda `service_healthy` nos dois ambientes.
+O runtime está fixado em `python:3.14.10-alpine3.24`.

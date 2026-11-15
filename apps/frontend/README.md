@@ -35,8 +35,8 @@ Somente o Nginx publica porta no host:
 
 - `/` e o WebSocket de HMR são encaminhados ao Vite em desenvolvimento.
 - `/api/` é encaminhado ao backend, preservando o prefixo.
-- Em produção, o Nginx entrega os arquivos publicados em `./app-frontend`, na
-  raiz do projeto, montados somente para leitura.
+- Em produção, o publicador grava no volume Docker `app-frontend`, que o Nginx
+  monta somente para leitura em `/usr/share/nginx/html`.
 
 O bind mount do código em `/app` deve preservar as dependências do contêiner,
 por exemplo com um volume separado em `/app/node_modules`.
@@ -46,10 +46,12 @@ uma resposta HTML inesperada; isso não valida a integração com o backend.
 
 ## Dependências e verificações
 
-Use `npm install <pacote>` para adicionar dependências e versione os dois
+Use `npm install --save-exact <pacote>` para adicionar dependências e versione os dois
 manifestos. Para reproduzir as versões existentes, use `npm ci`.
 
-Com Node.js 26 e npm instalados, também é possível executar, dentro desta pasta:
+O Dockerfile fixa Node.js em `26.13.1-alpine3.24`; dependências diretas usam
+versões exatas, e o lockfile fixa as transitivas. Com Node.js 26.13.1 e npm
+instalados, também é possível executar, dentro desta pasta:
 
 ```bash
 npm ci
