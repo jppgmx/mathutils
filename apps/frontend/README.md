@@ -29,12 +29,14 @@ precisa terminar com sucesso antes de o Nginx iniciar.
 
 ## Desenvolvimento e integração
 
-A configuração do Compose e do Nginx ainda está pendente na MU-01.
-No ambiente integrado, somente o Nginx publica porta no host:
+Os arquivos `compose.yml` e `compose.dev.yml`, na raiz, integram o frontend ao
+Nginx e ao backend. Consulte os comandos no [README principal](../../README.md).
+Somente o Nginx publica porta no host:
 
 - `/` e o WebSocket de HMR são encaminhados ao Vite em desenvolvimento.
 - `/api/` é encaminhado ao backend, preservando o prefixo.
-- Em produção, o Nginx entrega os arquivos do volume compartilhado.
+- Em produção, o Nginx entrega os arquivos publicados em `./app-frontend`, na
+  raiz do projeto, montados somente para leitura.
 
 O bind mount do código em `/app` deve preservar as dependências do contêiner,
 por exemplo com um volume separado em `/app/node_modules`.
@@ -58,4 +60,7 @@ npm run dev -- --host 0.0.0.0 --port 5173 --strictPort
 `npm test` usa o runner nativo do Node.js para testar o contrato da API com
 respostas simuladas: sucesso, erro HTTP, HTML, JSON inválido e falha de rede.
 Os testes não exigem bibliotecas adicionais nem iniciam o backend.
-A verificação pelo navegador, HMR e proxy Nginx deve ser feita no ambiente integrado.
+A validação integrada de dev já confirmou a consulta pelo proxy, o protocolo
+WebSocket de HMR e eventos de atualização após edição no host. A inspeção visual
+da atualização e da preservação de estado no navegador não foi repetida nessa
+verificação; as evidências e limitações estão registradas na MU-01.

@@ -32,5 +32,10 @@ O endpoint `GET /api/health` deve responder HTTP 200 com `{"status":"ok"}`.
 A [suíte inicial](./tests/test_health.py) verifica status, tipo de conteúdo e JSON.
 
 `EXPOSE 8000` documenta a porta interna; não a publica no host.
-A configuração Compose com proxy Nginx e bind mounts de desenvolvimento ainda
-está pendente na MU-01.
+Os arquivos `compose.yml` e `compose.dev.yml`, na raiz, incluem o backend e o
+proxy Nginx. O override de dev monta o código em `/app` e seleciona o target
+`dev`; produção seleciona `prod`, sem bind mount do código e sem reload.
+Consulte os comandos no [README principal](../../README.md).
+
+O endpoint de saúde está implementado, mas a configuração de `healthcheck` do
+Compose e a espera por `service_healthy` no gateway permanecem pendentes.

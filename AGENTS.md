@@ -13,7 +13,7 @@
 - `apps/backend/`: Python + FastAPI + Uvicorn; pip e dependências com versões fixadas.
 - `gateway/`: configurações do Nginx.
 - `docs/`: documentação complementar e decisões que precisem de mais contexto.
-- `compose.yaml`: produção. `compose.dev.yaml`: ajustes aplicados sobre a configuração base para desenvolvimento.
+- `compose.yml`: produção. `compose.dev.yml`: ajustes aplicados sobre a configuração base para desenvolvimento.
 - Fixe versões compatíveis de runtimes e dependências durante a implementação; evite imagens com a tag `latest`.
 - React Konva é a escolha para o editor, cuja instalação pertence à tarefa seguinte. Banco de dados, autenticação e persistência ficam fora da infraestrutura inicial.
 
