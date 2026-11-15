@@ -1,0 +1,55 @@
+name: mathutils
+
+networks:
+  default:
+    internal: true
+  gateway:
+
+services:
+  frontend:
+    build:
+      context: apps/frontend
+      dockerfile: Dockerfile
+      target: prod
+    volumes:
+      - app-frontend:/srv/frontend
+    restart: "no"
+
+  backend:
+    build:
+      context: apps/backend
+      dockerfile: Dockerfile
+      target: prod
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import json, urllib.request;
+          response = urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2);
+          assert response.status == 200;
+          assert json.load(response) == {'status': 'ok'}
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  gateway:
+    image: nginx:1.30.6-alpine3.24
+    networks:
+      - default
+      - gateway
+    volumes:
+      - ./gateway/prod.conf:/etc/nginx/conf.d/default.conf:ro
+      - app-frontend:/usr/share/nginx/html:ro
+    depends_on:
+      frontend:
+        condition: service_completed_successfully
+      backend:
+        condition: service_healthy
+    ports:
+      - "${HOST_PORT:-8080}:80"
+
+volumes:
+  app-frontend:

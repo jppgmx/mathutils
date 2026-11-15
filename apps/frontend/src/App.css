@@ -1,0 +1,48 @@
+.app {
+  width: min(100%, 44rem);
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.eyebrow {
+  color: #52637d;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0.5rem 0 1rem;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.connection {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid #d8e0ea;
+  border-radius: 0.75rem;
+}
+
+.success { color: #166534; }
+.error { color: #a32121; }
+
+button {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 0.4rem;
+  color: white;
+  background: #234a91;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { background: #19386e; }
+button:disabled { opacity: 0.65; cursor: wait; }
+button:focus-visible { outline: 3px solid #2563eb; outline-offset: 4px; }

@@ -1,0 +1,20 @@
+# Configuração local e segredos
+.env
+.env.*
+!.env.example
+
+# Dependências, caches e builds
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+dist-ssr/
+*.tsbuildinfo
+*.log
+
+# Estáticos publicados pelo frontend de produção
+/app-frontend/
