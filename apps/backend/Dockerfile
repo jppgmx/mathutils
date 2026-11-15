@@ -14,7 +14,7 @@ EXPOSE 8000
 
 FROM base AS build
 
-COPY requirements.txt .
+COPY ./requirements.txt .
 RUN python -m venv /opt/venv \
     && python -m pip install --no-cache-dir -r requirements.txt
 
